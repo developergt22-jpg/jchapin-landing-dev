@@ -1,0 +1,46 @@
+<footer class="bg-neutral text-white/80">
+  <div class="container-page grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
+    <div>
+      <a routerLink="/" class="inline-flex items-center gap-2 rounded-lg text-lg font-bold text-white">
+        <img ngSrc="images/logo-mark.webp" width="40" height="40" alt="" class="size-10 rounded-xl" />
+        <span>{{ app.name }}</span>
+      </a>
+      <p class="mt-3 max-w-sm text-sm leading-relaxed">
+        Descubre eventos cerca de ti, reserva tu entrada con código QR y llega a tiempo.
+      </p>
+    </div>
+
+    <nav aria-label="Legal y descarga">
+      <h2 class="text-sm font-semibold tracking-wide text-white uppercase">Enlaces</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        @for (link of links; track link.path) {
+          <li>
+            <a [routerLink]="link.path" class="rounded hover:text-white hover:underline">{{ link.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="text-sm font-semibold tracking-wide text-white uppercase">Contacto</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>
+          <a [href]="'mailto:' + app.contactEmail" class="rounded hover:text-white hover:underline">
+            {{ app.contactEmail }}
+          </a>
+        </li>
+        @for (social of app.socials; track social.url) {
+          <li>
+            <a [href]="social.url" target="_blank" rel="noopener" class="rounded hover:text-white hover:underline">
+              {{ social.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <p class="container-page py-5 text-xs">© {{ year }} {{ app.name }}. Hecho en Guatemala.</p>
+  </div>
+</footer>

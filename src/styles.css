@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+/* Arial ajustada a las métricas de Poppins: evita saltos de layout (CLS) al cargar la fuente. */
+@font-face {
+  font-family: 'Poppins Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica');
+  ascent-override: 93.62%;
+  descent-override: 31.21%;
+  line-gap-override: 8.92%;
+  size-adjust: 112.16%;
+}
+
+/* Identidad tomada de la app (JChapin_APP_BETA/src/global.scss) */
+@theme {
+  --color-primary: #004e3d;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #006853;
+  --color-secondary: #0d658d;
+  --color-secondary-container: #8dd1fe;
+  --color-tertiary: #5e3e00;
+  --color-tertiary-container: #7d5300;
+  --color-surface: #f6faff;
+  --color-surface-dim: #d3dbe3;
+  --color-neutral: #1d252b;
+  --color-muted: #4a5660;
+  --color-error: #ba1a1a;
+
+  --font-sans: 'Poppins', 'Poppins Fallback', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Deja espacio para el header fijo al saltar a un ancla */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-neutral antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-secondary;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors;
+}
+
+@utility btn-primary {
+  @apply btn bg-primary text-white hover:bg-primary-container;
+}
+
+@utility btn-light {
+  @apply btn bg-white text-primary hover:bg-surface;
+}
+
+@utility btn-outline {
+  @apply btn border-2 border-current bg-transparent;
+}
+
+@layer components {
+  /* Textos largos (páginas legales y de instrucciones) */
+  .prose-page {
+    @apply max-w-3xl text-base leading-relaxed text-muted;
+
+    & h2 {
+      @apply mt-10 mb-3 text-2xl font-semibold text-neutral;
+    }
+
+    & h3 {
+      @apply mt-6 mb-2 text-lg font-semibold text-neutral;
+    }
+
+    & p,
+    & ul,
+    & ol {
+      @apply mb-4;
+    }
+
+    & ul {
+      @apply list-disc pl-6;
+    }
+
+    & ol {
+      @apply list-decimal pl-6;
+    }
+
+    & li {
+      @apply mb-1;
+    }
+
+    & a {
+      @apply font-medium text-secondary underline underline-offset-2;
+    }
+
+    & strong {
+      @apply font-semibold text-neutral;
+    }
+  }
+}

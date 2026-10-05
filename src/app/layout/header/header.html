@@ -1,0 +1,64 @@
+<header class="sticky top-0 z-40 border-b border-surface-dim/60 bg-white/90 backdrop-blur">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a
+      routerLink="/"
+      class="flex items-center gap-2 rounded-lg text-lg font-bold text-primary"
+      (click)="close()"
+    >
+      <img ngSrc="images/logo-mark.webp" width="40" height="40" alt="" class="size-10 rounded-xl" />
+      <span>{{ app.name }}</span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        @for (item of nav; track item.fragment) {
+          <li>
+            <a
+              routerLink="/"
+              [fragment]="item.fragment"
+              class="rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-primary"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a routerLink="/" fragment="descargar" class="btn-primary min-h-10 px-5 py-2 text-sm" (click)="close()">
+        Descargar
+      </a>
+
+      <button
+        type="button"
+        class="inline-flex size-11 items-center justify-center rounded-full text-neutral hover:bg-surface lg:hidden"
+        [attr.aria-expanded]="open()"
+        aria-controls="menu-movil"
+        (click)="toggle()"
+      >
+        <app-icon [icon]="open() ? closeIcon : menuIcon" />
+        <span class="sr-only">{{ open() ? 'Cerrar menú' : 'Abrir menú' }}</span>
+      </button>
+    </div>
+  </div>
+
+  @if (open()) {
+    <nav id="menu-movil" aria-label="Principal móvil" class="border-t border-surface-dim/60 bg-white lg:hidden">
+      <ul class="container-page flex flex-col py-2">
+        @for (item of nav; track item.fragment) {
+          <li>
+            <a
+              routerLink="/"
+              [fragment]="item.fragment"
+              class="block rounded-lg px-2 py-3 text-base font-medium text-neutral hover:bg-surface"
+              (click)="close()"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+</header>
